@@ -12,6 +12,9 @@ canvas.height = BLOCK_SIZE * BLOCK_HEIGHT;
 
 context.scale(BLOCK_SIZE, BLOCK_SIZE);
 
+const $score = document.querySelector('span')
+let score = 0;
+ 
 //board
 
 const board = [
@@ -84,7 +87,6 @@ const PIECES = [
 
 
 
-//game loop
 function draw (){
   context.fillStyle = '#111'
   context.fillRect(0, 0, canvas.width, canvas.height)
@@ -105,7 +107,9 @@ function draw (){
       } 
     })
   })
+  
 }
+
 
 //drops
 //game loop
@@ -128,7 +132,6 @@ function update (time = 0){
       removeRows()
     }
   }
-
   draw()
   window.requestAnimationFrame(update)
 }
@@ -228,6 +231,8 @@ function removeRows () {
     board.splice(y, 1)
     const newRow = Array(BLOCK_WIDTH).fill(0)
     board.unshift(newRow)
+    score += 100;
+    $score.innerHTML = score
   })
 }
 
