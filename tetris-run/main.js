@@ -87,6 +87,8 @@ function draw (){
   })
 }
 
+//KeysValue 
+
 document.addEventListener ('keydown', evt => {  
   if (evt.key === 'ArrowLeft'){
     piece.position.x--
@@ -105,12 +107,13 @@ document.addEventListener ('keydown', evt => {
     piece.position.y++
     if(checkCollision()){
       piece.position.y--
+      solidifyPiece()
     }
   }
 })
 
 
-//check
+// Collision
 
 function checkCollision () {
   return piece.shape.find((row, y) => {
@@ -123,5 +126,19 @@ function checkCollision () {
   })
 };
 
+function solidifyPiece (){
+  piece.shape.forEach((row, x) => {
+    row.forEach((value, y) => {
+      if (value === 1){
+        board[y + piece.position.y][x + piece.position.x] = 1
+      }
+    })   
+  })
+
+  piece.position.x = 0
+  piece.position.y = 0
+}
+
 update();
 
+ 
