@@ -157,6 +157,26 @@ document.addEventListener ('keydown', evt => {
       removeRows()
     }
   }
+  if (evt.key === 'ArrowUp'){
+    const rotated = []
+
+    for(let i = 0; i < piece.shape[0].length; i++){
+      const row = []
+
+      for(let j = piece.shape.length - 1; j >= 0 ; j-- ){
+        row.push(piece.shape[j][i])
+      }
+      
+      rotated.push(row)
+    }
+    
+    const previousShape = piece.shape
+    piece.shape = rotated
+    if(checkCollision()){
+      piece.shape = previousShape
+    }
+
+  }
 })
 
 
@@ -174,8 +194,9 @@ function checkCollision () {
 };
 
 function solidifyPiece (){
-  piece.shape.forEach((row, x) => {
-    row.forEach((value, y) => {
+  piece.shape.forEach((row, y) => {
+    row.forEach((value, x) => {
+      
       if (value === 1){
         board[y + piece.position.y][x + piece.position.x] = 1
       }
@@ -183,10 +204,15 @@ function solidifyPiece (){
   })
 
   //get random shape
-  piece.shape = PIECES[Math.floor(Math.random() * PIECES.length)]
-
   piece.position.x = 0
   piece.position.y = 0
+  
+  piece.shape = PIECES[Math.floor(Math.random() * PIECES.length)]
+
+  if(checkCollision()){
+    window.alert("Game Over")
+    board.forEach((row)=> row.fill(0))
+  }
 }
 
 function removeRows () {
