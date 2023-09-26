@@ -1,4 +1,4 @@
-import './style.css'
+import './style.css';
 //1. inisilisamos el canvas
 const canvas = document.querySelector('canvas')
 const context = canvas.getContext('2d')
@@ -12,7 +12,7 @@ canvas.height = BLOCK_SIZE * BLOCK_HEIGHT;
 
 context.scale(BLOCK_SIZE, BLOCK_SIZE);
 
-//4. board
+//board
 
 const board = [
   [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -48,7 +48,7 @@ const board = [
 ]
 
 
-//4. piece
+//piece
 
 const piece = {
   position: {x: 1, y: 1},
@@ -58,13 +58,7 @@ const piece = {
   ]
 }
 
-//2. game loop
-
-function update (){
-  draw()
-  window.requestAnimationFrame(update)
-}
-
+//game loop
 function draw (){
   context.fillStyle = '#111'
   context.fillRect(0, 0, canvas.width, canvas.height)
@@ -85,6 +79,32 @@ function draw (){
       } 
     })
   })
+}
+
+//drops
+//game loop
+let dropCounter = 0
+let lastTime = 0
+
+function update (time = 0){
+  const deltaTime = time - lastTime
+  lastTime = time
+
+  dropCounter += deltaTime
+
+  if (dropCounter > 500) {
+    piece.position.y++
+    dropCounter = 0
+
+    if(checkCollision()){
+      piece.position.y--
+      solidifyPiece()
+      removeRows()
+    }
+  }
+
+  draw()
+  window.requestAnimationFrame(update)
 }
 
 //KeysValue 
@@ -108,12 +128,13 @@ document.addEventListener ('keydown', evt => {
     if(checkCollision()){
       piece.position.y--
       solidifyPiece()
+      removeRows()
     }
   }
 })
 
 
-// Collision
+// Logics
 
 function checkCollision () {
   return piece.shape.find((row, y) => {
@@ -137,6 +158,22 @@ function solidifyPiece (){
 
   piece.position.x = 0
   piece.position.y = 0
+}
+
+function removeRows () {
+  const rowsToRemover = []
+
+  board.forEach((row, y) => {
+    if (row.every(value => value === 1 )) {
+      rowsToRemover.push(y)
+    }
+  })
+
+  rowsToRemover.forEach(y => {
+    board.splice(y, 1)
+    const newRow = Array(BLOCK_WIDTH).fill(0)
+    board.unshift(newRow)
+  })
 }
 
 update();
