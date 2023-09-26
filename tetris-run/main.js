@@ -58,6 +58,32 @@ const piece = {
   ]
 }
 
+const PIECES = [
+  [
+    [1, 1],
+    [1, 1]
+  ],
+  [
+    [1, 1, 1, 1]
+  ],
+  [
+    [0, 1, 0],
+    [1, 1 , 1]
+  ],
+  [
+    [1, 1, 0],
+    [0, 1, 1]
+  ],
+  [
+    [1, 0],
+    [1, 0],
+    [1, 1]
+  ]
+
+]
+
+
+
 //game loop
 function draw (){
   context.fillStyle = '#111'
@@ -155,6 +181,9 @@ function solidifyPiece (){
       }
     })   
   })
+
+  //get random shape
+  piece.shape = PIECES[Math.floor(Math.random() * PIECES.length)]
 
   piece.position.x = 0
   piece.position.y = 0
