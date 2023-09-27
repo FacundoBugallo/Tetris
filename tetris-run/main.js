@@ -1,11 +1,8 @@
 import './style.css';
+import {BLOCK_SIZE, BLOCK_WIDTH, BLOCK_HEIGHT, EVENT_MOVEMENTS } from './consts'
 //1. inisilisamos el canvas
 const canvas = document.querySelector('canvas')
 const context = canvas.getContext('2d')
-
-const BLOCK_SIZE = 20;
-const BLOCK_WIDTH = 14;
-const BLOCK_HEIGHT = 30;
 
 canvas.width = BLOCK_SIZE * BLOCK_WIDTH;
 canvas.height = BLOCK_SIZE * BLOCK_HEIGHT;
@@ -139,20 +136,20 @@ function update (time = 0){
 //KeysValue 
 
 document.addEventListener ('keydown', evt => {  
-  if (evt.key === 'ArrowLeft'){
+  if (evt.key === EVENT_MOVEMENTS.LEFT){
     piece.position.x--
     if(checkCollision()){
       piece.position.x++
       console.log("dete")
     }
   } 
-  if (evt.key === 'ArrowRight'){
+  if (evt.key === EVENT_MOVEMENTS.RIGHT){
     piece.position.x++
     if(checkCollision()){
       piece.position.x--
     }
   }
-  if (evt.key === 'ArrowDown'){
+  if (evt.key === EVENT_MOVEMENTS.DOWN){
     piece.position.y++
     if(checkCollision()){
       piece.position.y--
@@ -160,7 +157,7 @@ document.addEventListener ('keydown', evt => {
       removeRows()
     }
   }
-  if (evt.key === 'ArrowUp'){
+  if (evt.key === EVENT_MOVEMENTS.UP){
     const rotated = []
 
     for(let i = 0; i < piece.shape[0].length; i++){
@@ -235,7 +232,20 @@ function removeRows () {
     $score.innerHTML = score
   })
 }
+const $section = document.querySelector('section') 
 
-update();
+$section.addEventListener("click", ()=>{
+  update();
+  
+  $section.remove()
+  const audio = new Audio('./media/music/Tetris.mp3')
+  audio.volume = 0.5
+  audio.play()
+
+
+
+})
+
+
 
  
