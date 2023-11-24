@@ -5,7 +5,7 @@
 
   color-scheme: dark light;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #05b;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -71,7 +71,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #837e7e;
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -105,12 +105,13 @@ body {
 
 section {
   position: absolute;
-  background-color: black;
+  background-color: rgba(115, 115, 115, 0.665);
   width: 100vw;
   height: 100hw;
   top: 0;
   inset: 0;
   display: grid;
-  font-size: 48px;
+  font-size: 108px;
+  font-weight: 700;
   place-content: center;
 }

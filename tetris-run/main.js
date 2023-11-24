@@ -1,5 +1,5 @@
 import './style.css';
-import {BLOCK_SIZE, BLOCK_WIDTH, BLOCK_HEIGHT, EVENT_MOVEMENTS } from './consts'
+import {BLOCK_SIZE, BLOCK_WIDTH, BLOCK_HEIGHT, EVENT_MOVEMENTS } from './component/consts.js'
 //1. inisilisamos el canvas
 const canvas = document.querySelector('canvas')
 const context = canvas.getContext('2d')
@@ -44,7 +44,7 @@ const board = [
   [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-  [1,1,1,1,0,0,1,1,1,1,1,1,1,1]
+  [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 ]
 
 
@@ -85,13 +85,13 @@ const PIECES = [
 
 
 function draw (){
-  context.fillStyle = '#111'
+  context.fillStyle = '#bdc3c7'
   context.fillRect(0, 0, canvas.width, canvas.height)
 
     board.forEach((row, y) => {
       row.forEach((value, x) => {
         if(value === 1) {
-        context.fillStyle = 'blue'
+        context.fillStyle = '#d35400'
         context.fillRect(x ,y ,1 ,1 )
         }
       })
@@ -99,7 +99,7 @@ function draw (){
   piece.shape.forEach((row,y) => {
     row.forEach((value,x) => {
       if (value) {
-        context.fillStyle = 'red'
+        context.fillStyle = '#d35400'
         context.fillRect(x + piece.position.x, y + piece.position.y,1 , 1)
       } 
     })
